@@ -1,7 +1,7 @@
 // Route requirement
 const router = require('express').Router();
 
-// Set requirements (from thoughts-controller)
+// Set requirements from thoughts-controller
 const {
     getAllThoughts,
     getThoughtsById,
