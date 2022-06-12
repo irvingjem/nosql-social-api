@@ -1,8 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 
-// ReactionsSchema
-const ReactionsSchema = new Schema({
-    // Set custom ID 
+// create reaction schema
+const reactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
@@ -19,48 +18,47 @@ const ReactionsSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+        get: createdAtVal => dateFormat(createdAtVal)
     }
-}, {
+},
+{
     toJSON: {
         getters: true
-    }
+    },
+    id: false
 });
 
-// ThoughtsSchema
-const ThoughtsSchema = new Schema({
+// create thought schema
+const thoughtSchema = new Schema({
     thoughtText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 280
     },
     createdAt: {
-        type: Date,
-        default: Date.now,
-        // Moment
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
     },
     username: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
-    // Use ReactionsSchema to validate data
-    reactions: [ReactionsSchema]
-}, {
+    reactions: [reactionSchema]
+},
+{
     toJSON: {
         virtuals: true,
         getters: true
     },
     id: false
-})
-
-// get total count of reactions
-ThoughtsSchema.virtual('reactionCount').get(function() {
-    return this.reactions.length;
 });
 
-// create the Thoughts model using the Thoughts Schema
-const Thoughts = model('Thoughts', ThoughtsSchema);
+thoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
+});
 
-module.exports = Thoughts;
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;
