@@ -29,7 +29,7 @@ This a project was built using <br>
 * javaScript
 
 ## Demo
-![employee tracker example video](/walkthrough//social-api-walkthrough.gif) <br>
+![social api example video](/walkthrough//social-api-walkthrough.gif) <br>
 https://drive.google.com/file/d/17qc58Ah9WSprPx86uf1-AMntVc1e-k42/view Link to video
 ## Author 
 Me :)
